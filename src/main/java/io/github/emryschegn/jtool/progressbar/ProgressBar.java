@@ -137,7 +137,11 @@ public final class ProgressBar implements AutoCloseable {
             throw new IllegalArgumentException("delta must be >= 0");
         }
         current.addAndGet(delta);
-        maybeRender();
+        if (total > 0 && current.get() >= total) {
+            render();
+        } else {
+            maybeRender();
+        }
     }
 
     /**
